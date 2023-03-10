@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "plantuml-parser": "^0.3.0"
+  }
+}

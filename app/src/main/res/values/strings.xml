@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">e-com</string>
+    <string name="sales_icon">Sales</string>
+    <string name="contacts_text">Контакты</string>
+    <string name="about_text">Про нас</string>
+    <string name="main_scene_text">Главная</string>
+    <string name="logo_of_app_1">TV</string>
+    <string name="logo_of_app_2">App</string>
+    <string name="price">Цена:</string>
+    <string name="resolution">Разрешение экрана:</string>
+</resources>
