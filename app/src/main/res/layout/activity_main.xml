@@ -27,6 +27,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:srcCompat="@drawable/hot_deal" />
 
+
         <TextView
             android:id="@+id/contacts"
             android:layout_width="100dp"
