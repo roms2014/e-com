@@ -1,16 +1,34 @@
 package com.example.e_com.model;
 
 public class TV {
-    int id;
-    String img, title, price, resolution, background;
+    int id, category;
+    String img, title, price, resolution, background, text;
 
-    public TV(int id, String img, String title, String price, String resolution, String background) {
+    public TV(int id, int category, String img, String title, String price, String resolution, String background, String text) {
         this.id = id;
         this.img = img;
         this.title = title;
         this.price = price;
         this.resolution = resolution;
         this.background = background;
+        this.text = text;
+        this.category = category;
+    }
+
+    public int getCategory() {
+        return category;
+    }
+
+    public void setCategory(int category) {
+        this.category = category;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
     }
 
     public int getId() {

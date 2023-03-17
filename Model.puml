@@ -1,0 +1,73 @@
+@startuml
+class com.example.e_com.model.TV {
+~ int id
+~ String img
++ int getId()
++ void setId(int)
++ String getImg()
++ void setImg(String)
++ String getTitle()
++ void setTitle(String)
++ String getPrice()
++ void setPrice(String)
++ String getResolution()
++ void setResolution(String)
++ String getBackground()
++ void setBackground(String)
+}
+class com.example.e_com.MainActivity {
+~ RecyclerView categoryRecycler
+~ CategoryAdapter categoryAdapter
+# void onCreate(Bundle)
+- void setCategoryRecycler(List<Category>)
+}
+class com.example.e_com.ExampleInstrumentedTest {
++ void useAppContext()
+}
+class com.example.e_com.ExampleUnitTest {
++ void addition_isCorrect()
+}
+class com.example.e_com.BuildConfig {
++ {static} boolean DEBUG
++ {static} String APPLICATION_ID
++ {static} String BUILD_TYPE
++ {static} int VERSION_CODE
++ {static} String VERSION_NAME
+}
+class com.example.e_com.model.Category {
+~ int id
+~ String title
++ int getId()
++ void setId(int)
++ String getTitle()
++ void setTitle(String)
+}
+class com.example.e_com.adapter.TVAdapter {
+~ Context context
+~ List<TV> TVs
++ TVViewHolder onCreateViewHolder(ViewGroup,int)
++ void onBindViewHolder(TVViewHolder,int)
++ int getItemCount()
+}
+class com.example.e_com.adapter.TVAdapter.TVViewHolder {
+}
+class com.example.e_com.adapter.CategoryAdapter {
+~ Context context
+~ List<Category> categories
++ CategoryViewHolder onCreateViewHolder(ViewGroup,int)
++ void onBindViewHolder(CategoryViewHolder,int)
++ int getItemCount()
+}
+class com.example.e_com.adapter.CategoryAdapter.CategoryViewHolder {
+~ TextView categoryTitle
+}
+
+
+androidx.appcompat.app.AppCompatActivity <|-- com.example.e_com.MainActivity
+com.example.e_com.adapter.Adapter <|-- com.example.e_com.adapter.TVAdapter
+com.example.e_com.adapter.TVAdapter +.. com.example.e_com.adapter.TVAdapter.TVViewHolder
+com.example.e_com.adapter.ViewHolder <|-- com.example.e_com.adapter.TVAdapter.TVViewHolder
+com.example.e_com.adapter.Adapter <|-- com.example.e_com.adapter.CategoryAdapter
+com.example.e_com.adapter.CategoryAdapter +.. com.example.e_com.adapter.CategoryAdapter.CategoryViewHolder
+com.example.e_com.adapter.ViewHolder <|-- com.example.e_com.adapter.CategoryAdapter.CategoryViewHolder
+@enduml
