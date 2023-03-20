@@ -6,8 +6,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -19,6 +19,7 @@ import com.example.e_com.model.TV;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class MainActivity extends AppCompatActivity {
 
     RecyclerView categoryRecycler, TVRecycler;
@@ -26,8 +27,8 @@ public class MainActivity extends AppCompatActivity {
     static TVAdapter tvAdapter;
     static List<TV> TVList = new ArrayList<>();
     static List<TV> fullTVList = new ArrayList<>();
+    private DBwork db;
     ImageView back_filter;
-//    private MediaPlayer hot_deal_sound;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -35,17 +36,36 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        db = new DBwork(this);
+
+        db.openConnection();
+//        db.dbInsert_tv_table("'1','s1','Samsung\nQE50Q60BAU','69990','3840x2160','#424345','Описание товара'");
+//        db.dbInsert_tv_table("'1','l1','LG\nOLED55C2RLA','164999','3840x2160','#404345','Описание товара'");
+//        db.dbInsert_tv_table("'1','x1','Xiaomi\nMi TV P1 50','44990','3840x2160','#384345','Описание товара'");
+
         List<Category> categoryList = new ArrayList<>();
-        categoryList.add(new Category(1, "Samsung"));
-        categoryList.add(new Category(2, "LG"));
-        categoryList.add(new Category(3, "Xiaomi"));
+
+//        db.checkTable();
+//        db.dbInsert_category("'Samsung'");
+//        db.dbInsert_category("'LG'");
+//        db.dbInsert_category("'Xiaomi'");
+
+        int i = 1;
+        for(String s : db.dbSelect_category()){
+            categoryList.add(new Category(i, s));
+            i++;
+        }
 
         setCategoryRecycler(categoryList);
 
         List<TV> TVList = new ArrayList<>();
-        TVList.add(new TV(1, 1, "s1", "Samsung\nQE50Q60BAU", "69990", "3840x2160", "#424345", "Описание товара"));
-        TVList.add(new TV(2, 2, "l1", "LG\nOLED55C2RLA", "164999", "3840x2160", "#404345", "Описание товара"));
-        TVList.add(new TV(3, 3, "x1", "Xiaomi\nMi TV P1 50", "44990", "3840x2160", "#384345", "Описание товара"));
+        for(String s : db.dbSelect_tv_table()){
+            String[] str = s.split("`");
+            TVList.add(new TV(Integer.parseInt(str[0]), Integer.parseInt(str[1]),
+                    str[2],str[3],str[4],str[5],str[6], str[7]));
+        }
+
+        db.closeConnection();
 
         fullTVList.addAll(TVList);
 
@@ -53,10 +73,10 @@ public class MainActivity extends AppCompatActivity {
 
         back_filter = (ImageView) findViewById(R.id.imageView2);
 
-//        hot_deal = (ImageView) findViewById(R.id.imageView);
-//        hot_deal_sound = MediaPlayer.create(this, R.raw.fire);
         imageClick();
+
     }
+
     public void openShoppingCart(View view){
         Intent intent = new Intent(this, order_page.class);
         startActivity(intent);
@@ -109,8 +129,4 @@ public class MainActivity extends AppCompatActivity {
                 }
         );
     }
-
-//    public void soundPlay(MediaPlayer sound){
-//        sound.start();
-//    }
 }
