@@ -1,4 +1,4 @@
-#PMU_Android_labs
+# PMU_Android_labs
 ```
 import android.widget.Button;
 import android.widget.TextView;
@@ -46,5 +46,27 @@ public class MainActivity extends AppCompatActivity {
             // Задеркка в 300 мс
             Handler1.postDelayed(this, 300);
         }// void run ()
-    };
+    };        
+    @Override
+    protected  void onPause(){
+        //Удаляем Runnable-объект
+        Handler1.removeCallbacks(TimeUpdater);
+        super.onPause();
+    }
+    @Override
+    protected  void onResume(){
+        super.onResume();
+        //Добавляем Runnable-объект
+        Handler1.postDelayed(TimeUpdater, 150);
+    }
+}
 ```
+Кроме метода postDelayed() вы можете использовать метод `postAtTime()`:
+`postAtTime(RunnaЬle r, long uptimeMillis)`
+В этом случае объект r добавляется в очередь сообщений, запуск объекта производится
+во время, заданное вторым параметром (в миллисекундах).
+Самый простой способ помещения объекта в очередь - метод `post()`, когда указывается
+только помещаемый объект, но не указывается время выполнения объекта:
+`post (RunnaЫe r)`
+Подробно об обработчиках потока вы можете прочитать в руководстве разработчика:
+http://developer.android.com/reference/android/os/llandler.html
