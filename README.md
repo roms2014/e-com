@@ -136,3 +136,81 @@ SD-карты на другую - деятельность может подкл
 | Vibrator Service | Управляет доступом к виброзвонку |
 | Wallpaper Service | Управляет обоями домашнего экрана |
 | WiFi Service | Управляет соединениями Wi-Fi |
+![image](https://user-images.githubusercontent.com/79161746/226843251-0f28ed23-0169-4dd0-a423-fcaefd0dc0d3.png)\
+Рассмотрим общий алгоритм создания службы. Первым делом нужно создать
+класс, расширяющий класс `android.app.Service`. В Android Studio для этого нужно
+щелкнуть правой кнопкой мыши на проекте и выбрать команду New | Java Class
+(рис. 10.3).\
+![image_2023-03-22_11-33-54](https://user-images.githubusercontent.com/79161746/226845160-49d75f31-ca64-45de-bcb0-96a20cc470f4.png)
+По умолчанию будет создана заготовка класса сервиса, представленная в листинге 10.4, а.\
+```
+package com.example.den.myfirstservice;
+puЬlic class MyService {
+}
+```
+Изменим полученную «болванку», как показано в листинге 10.4, б.\
+```
+import android.app.Service;
+import android.content.Intent;
+import android.os.IBinder;
+public class MyService extends Service{
+@Override
+     pubic IBinder onВind(Intent arg0){
+         // TODO Auto-generated rnethod stuЬ
+         return null;
+     }
+}
+```
+В файле манифеста приложения вам нужно описать сервис:\
+`<service android:name=".MyService"></service>`\
+Элемент `<service>` добавляется в элемент `<application>`. Пример файла манифеста
+представлен в листинге 10.5.\
+```
+<?xml version="l.0" encoding="utf-8"?>
+«manifest xmlns:android="http://schemas.android.com/apk/res/android" 
+package="com.example.den.myfirstservice">
+<application
+android:allowBackup="true" 
+android:icon="@mipmap/ic_launcher" 
+android:label="@string/app_name" 
+android:supportsRt1="true" 
+android:theme="@style/AppTheme">
+<service android:name=".MyService"></service>
+<activity android:name=".MainActivity">
+<intent-filter>
+<action android:name="android.intent.action.MAIN" />
+<category android:name="android.intent.category.LAUNCHER" />
+</intent-filter>
+</activity>
+</application>
+</manifest>
+```
+Теперь нужно переопределить методы `onCreate()` и `onDestroy()`. Для этого щелкни­
+те на имени класса в исходном коде и выберите команду Code | Override Methods
+(рис. 10.4). Конечно, переопределить методы можно и без этого окна, но нужно же
+продемонстрировать, что таковое в Android Studio имеется.\
+![image_2023-03-22_12-02-04](https://user-images.githubusercontent.com/79161746/226852542-7a7973c6-c333-447c-b073-90188f6bd5ec.png)\
+Метод `onВind()` нужно переопределять в том случае, если новый компонент привя­
+зывается к этой службе после его создания.\
+Запустите службу функцией `startservice()`. Остановить сервис можно функцией
+`stopService()`. Представим, что у нас есть деятельность `MainActivity` с кнопками
+Start и Stop, при этом кнопка Start запускает сервис `MyService`, описанный в классе
+`MyService` (файл MyService.java). Обработчик нажатия этой кнопки будет выглядеть
+так:\
+```
+startButton.setOnClickListener(new View.OnClickListener(){
+ pubic void onClick(View view) {
+  startService(new Intent(MainActivity.this,
+   MyService.class));
+ }
+});
+```
+Обработчик кнопки Stop будет таким:
+```
+stopButton.setOnClickListener(new View.OnClickListener(){
+ pubic void onClick(View v) {
+  stopService(new Intent(MainActivity.this,
+   MyService.class));
+ }
+});
+```
