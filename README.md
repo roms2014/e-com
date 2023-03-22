@@ -197,7 +197,7 @@ android:theme="@style/AppTheme">
 `stopService()`. Представим, что у нас есть деятельность `MainActivity` с кнопками
 Start и Stop, при этом кнопка Start запускает сервис `MyService`, описанный в классе
 `MyService` (файл MyService.java). Обработчик нажатия этой кнопки будет выглядеть
-так:\
+так:
 ```
 startButton.setOnClickListener(new View.OnClickListener(){
  pubic void onClick(View view) {
